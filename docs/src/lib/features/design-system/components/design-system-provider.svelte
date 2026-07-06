@@ -8,9 +8,9 @@
 		type DesignSystemConfig,
 	} from "$lib/registry/config.js";
 	import { browser } from "$app/environment";
+	import { page } from "$app/state";
 	import { watch } from "runed";
 	import { setupDesignSystem } from "./design-system-provider-state.svelte.js";
-	import { cn } from "$lib/registry/lib/utils.js";
 	import { toggleMode } from "mode-watcher";
 
 	const uid = $props.id();
@@ -22,6 +22,9 @@
 	let { children }: Props = $props();
 
 	const designSystem = setupDesignSystem();
+	const isPreviewDocument = $derived(
+		page.url.pathname.startsWith("/preview/") || page.url.pathname.startsWith("/view/")
+	);
 
 	const effectiveRadius = $derived(designSystem.style === "lyra" ? "none" : designSystem.radius);
 
@@ -57,81 +60,96 @@
 		return buildRegistryTheme(config);
 	});
 
-	watch([() => registryTheme, () => browser], ([registryTheme, browser]) => {
-		if (!browser) return;
-		if (!registryTheme) return;
+	watch(
+		[
+			() => registryTheme,
+			() => browser,
+			() => isPreviewDocument,
+			() => designSystem.style,
+			() => designSystem.font,
+			() => designSystem.fontHeading,
+		],
+		([registryTheme, browser, isPreviewDocument]) => {
+			if (!browser) return;
+			if (!registryTheme) return;
 
-		const body = document.body;
+			const body = document.body;
 
-		// Update style class in place (remove old, add new).
-		body.classList.forEach((className) => {
-			if (className.startsWith("style-")) {
-				body.classList.remove(className);
+			// Only isolated preview documents get global classes for portaled UI.
+			body.classList.forEach((className) => {
+				if (className.startsWith("style-")) {
+					body.classList.remove(className);
+				}
+			});
+			body.classList.forEach((className) => {
+				if (className.startsWith("base-color-")) {
+					body.classList.remove(className);
+				}
+			});
+			if (isPreviewDocument) {
+				body.classList.add(`style-${designSystem.style}`);
+				body.classList.add(`base-color-${designSystem.baseColor}`);
 			}
-		});
-		body.classList.add(`style-${designSystem.style}`);
 
-		// Update base color class in place.
-		body.classList.forEach((className) => {
-			if (className.startsWith("base-color-")) {
-				body.classList.remove(className);
+			const selectedFont =
+				fonts.find((font) => font.name.replace("font-", "") === designSystem.font)?.font
+					.family ?? fonts[0].font.family;
+
+			const selectedHeadingFont =
+				fonts.find(
+					(font) => font.name.replace("font-heading-", "") === designSystem.fontHeading
+				)?.font.family ?? fonts[0].font.family;
+
+			const styleId = uid;
+			let styleElement = document.getElementById(styleId) as HTMLStyleElement | null;
+
+			if (!styleElement) {
+				styleElement = document.createElement("style");
+				styleElement.id = styleId;
+				document.head.appendChild(styleElement);
 			}
-		});
-		body.classList.add(`base-color-${designSystem.baseColor}`);
 
-		const selectedFont =
-			fonts.find((font) => font.name.replace("font-", "") === designSystem.font)?.font
-				.family ?? fonts[0].font.family;
-		document.documentElement.style.setProperty("--font-sans", selectedFont);
+			const { light: lightVars, dark: darkVars, theme: themeVars } = registryTheme.cssVars;
 
-		const selectedHeadingFont =
-			fonts.find(
-				(font) => font.name.replace("font-heading-", "") === designSystem.fontHeading
-			)?.font.family ?? fonts[0].font.family;
-		document.documentElement.style.setProperty("--font-heading", selectedHeadingFont);
+			const lightSelector = isPreviewDocument ? ":root,\n[data-coss-ui]" : "[data-coss-ui]";
+			const darkSelector = isPreviewDocument
+				? ".dark,\n.dark [data-coss-ui],\n[data-coss-ui].dark"
+				: ".dark [data-coss-ui],\n[data-coss-ui].dark";
 
-		const styleId = uid;
-		let styleElement = document.getElementById(styleId) as HTMLStyleElement | null;
+			let cssText = `${lightSelector} {\n`;
+			cssText += `  --font-sans: ${selectedFont};\n`;
+			cssText += `  --font-heading: ${selectedHeadingFont};\n`;
+			// Add theme vars (shared across light/dark).
+			if (themeVars) {
+				Object.entries(themeVars).forEach(([key, value]) => {
+					if (value) {
+						cssText += `  --${key}: ${value};\n`;
+					}
+				});
+			}
+			// Add light mode vars.
+			if (lightVars) {
+				Object.entries(lightVars).forEach(([key, value]) => {
+					if (value) {
+						cssText += `  --${key}: ${value};\n`;
+					}
+				});
+			}
+			cssText += "}\n\n";
 
-		if (!styleElement) {
-			styleElement = document.createElement("style");
-			styleElement.id = styleId;
-			document.head.appendChild(styleElement);
+			cssText += `${darkSelector} {\n`;
+			if (darkVars) {
+				Object.entries(darkVars).forEach(([key, value]) => {
+					if (value) {
+						cssText += `  --${key}: ${value};\n`;
+					}
+				});
+			}
+			cssText += "}\n";
+
+			styleElement.textContent = cssText;
 		}
-
-		const { light: lightVars, dark: darkVars, theme: themeVars } = registryTheme.cssVars;
-
-		let cssText = ":root {\n";
-		// Add theme vars (shared across light/dark).
-		if (themeVars) {
-			Object.entries(themeVars).forEach(([key, value]) => {
-				if (value) {
-					cssText += `  --${key}: ${value};\n`;
-				}
-			});
-		}
-		// Add light mode vars.
-		if (lightVars) {
-			Object.entries(lightVars).forEach(([key, value]) => {
-				if (value) {
-					cssText += `  --${key}: ${value};\n`;
-				}
-			});
-		}
-		cssText += "}\n\n";
-
-		cssText += ".dark {\n";
-		if (darkVars) {
-			Object.entries(darkVars).forEach(([key, value]) => {
-				if (value) {
-					cssText += `  --${key}: ${value};\n`;
-				}
-			});
-		}
-		cssText += "}\n";
-
-		styleElement.textContent = cssText;
-	});
+	);
 
 	let menuObserver: MutationObserver | null = null;
 	let menuFrameId = 0;
@@ -264,7 +282,7 @@
 <div
 	data-slot="design-system-provider"
 	style="display: contents;"
-	class={cn(`style-${designSystem.style} base-color-${designSystem.baseColor}`)}
+	class={`style-${designSystem.style} base-color-${designSystem.baseColor}`}
 >
 	{@render children?.()}
 </div>

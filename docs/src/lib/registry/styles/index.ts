@@ -17,7 +17,7 @@ export const STYLES = [
 	{
 		name: "nova",
 		title: "Nova",
-		description: "Reduced padding and margins for compact layouts.",
+		description: "Coss UI surfaces, tokens, and compact controls.",
 		icon: Nova,
 	},
 	{

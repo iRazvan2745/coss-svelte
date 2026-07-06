@@ -59,7 +59,7 @@ export type RadiusValue = Radius["name"];
 
 export const designSystemConfigSchema = z
 	.object({
-		style: z.enum(STYLES.map((s) => s.name)).default("vega"),
+		style: z.enum(STYLES.map((s) => s.name)).default("nova"),
 		iconLibrary: z
 			.enum(Object.keys(iconLibraries) as [IconLibraryName, ...IconLibraryName[]])
 			.default("lucide"),
@@ -89,12 +89,12 @@ export const designSystemConfigSchema = z
 export type DesignSystemConfig = z.infer<typeof designSystemConfigSchema>;
 
 export const DEFAULT_CONFIG: DesignSystemConfig = {
-	style: "vega",
+	style: "nova",
 	baseColor: "neutral",
 	theme: "neutral",
 	chartColor: "neutral",
 	iconLibrary: "lucide",
-	font: "inter",
+	font: "geist",
 	menuAccent: "subtle",
 	menuColor: "default",
 	radius: "default",
@@ -124,13 +124,13 @@ export const PRESETS: Preset[] = [
 	{
 		name: "nova",
 		title: "Nova",
-		description: "Nova / Hugeicons / Inter",
+		description: "Coss / Lucide / Geist Sans",
 		style: "nova",
 		baseColor: "neutral",
 		theme: "neutral",
 		chartColor: "neutral",
-		iconLibrary: "hugeicons",
-		font: "inter",
+		iconLibrary: "lucide",
+		font: "geist",
 		menuAccent: "subtle",
 		menuColor: "default",
 		radius: "default",

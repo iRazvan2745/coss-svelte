@@ -2,6 +2,7 @@
 	import type { Component, Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
 	import { cn } from "$lib/utils.js";
+	import { useDesignSystem } from "$lib/features/design-system/index.js";
 
 	let {
 		class: className,
@@ -18,6 +19,8 @@
 		component?: Component;
 		name: string;
 	} = $props();
+
+	const designSystem = useDesignSystem();
 </script>
 
 {#snippet ExampleFallback()}
@@ -46,8 +49,12 @@
 			data-llm-ignore
 		>
 			<div
+				data-coss-ui
 				data-align={align}
-				class="preview flex min-h-[450px] w-full justify-center p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start"
+				class={cn(
+					"preview bg-background text-foreground flex min-h-[450px] w-full justify-center p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start",
+					`style-${designSystem.style} base-color-${designSystem.baseColor}`
+				)}
 			>
 				{#if example}
 					{@render example()}

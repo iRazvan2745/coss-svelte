@@ -34,7 +34,7 @@ export const DEFAULT_CONFIG = {
 		ui: "$lib/components/ui",
 	},
 	tailwind: {
-		baseColor: "slate",
+		baseColor: "neutral",
 		css: "src/app.css",
 	},
 	typescript: true,

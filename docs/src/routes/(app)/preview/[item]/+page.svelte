@@ -3,9 +3,12 @@
 	import TailwindIndicator from "$lib/components/tailwind-indicator.svelte";
 	import Button from "$lib/registry/ui/button/button.svelte";
 	import IconPlaceholder from "$lib/components/icon-placeholder/icon-placeholder.svelte";
+	import { useDesignSystem } from "$lib/features/design-system/index.js";
+	import { cn } from "$lib/utils.js";
 	import type { Component } from "svelte";
 
 	let { data } = $props();
+	const designSystem = useDesignSystem();
 
 	const createExampleComponents = import.meta.glob(
 		"/src/lib/registry/examples/create/*/*.svelte"
@@ -21,23 +24,31 @@
 	);
 </script>
 
-{#if page.url.searchParams.get("fromPreview") === "true"}
-	<Button
-		class="absolute top-2 right-2 isolate z-10"
-		href="/create/{data.example.name}{page.url.search}"
-		variant="ghost"
-		size="icon-sm"
-	>
-		<IconPlaceholder
-			lucide="MinimizeIcon"
-			tabler="IconMinimize"
-			hugeicons="ArrowShrinkIcon"
-			phosphor="CornersInIcon"
-			remixicon="RiExpandDiagonalLine"
-		/>
-	</Button>
-{/if}
-{#await ComponentPromise then { default: Component }}
-	<Component />
-{/await}
+<div
+	data-coss-ui
+	class={cn(
+		"bg-background text-foreground min-h-svh",
+		`style-${designSystem.style} base-color-${designSystem.baseColor}`
+	)}
+>
+	{#if page.url.searchParams.get("fromPreview") === "true"}
+		<Button
+			class="absolute top-2 right-2 isolate z-10"
+			href="/create/{data.example.name}{page.url.search}"
+			variant="ghost"
+			size="icon-sm"
+		>
+			<IconPlaceholder
+				lucide="MinimizeIcon"
+				tabler="IconMinimize"
+				hugeicons="ArrowShrinkIcon"
+				phosphor="CornersInIcon"
+				remixicon="RiExpandDiagonalLine"
+			/>
+		</Button>
+	{/if}
+	{#await ComponentPromise then { default: Component }}
+		<Component />
+	{/await}
+</div>
 <TailwindIndicator />

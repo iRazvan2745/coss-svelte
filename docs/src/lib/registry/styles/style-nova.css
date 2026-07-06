@@ -18,48 +18,48 @@
 
 	/* MARK: Alert */
 	.cn-alert {
-		@apply grid gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4;
+		@apply text-card-foreground grid items-start gap-x-2 gap-y-0.5 rounded-xl border px-3.5 py-3 text-left text-sm has-data-[slot=alert-action]:grid-cols-[1fr_auto] has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2 has-[>svg]:has-data-[slot=alert-action]:grid-cols-[calc(var(--spacing)*4)_1fr_auto] *:[svg]:h-lh *:[svg]:w-4;
 	}
 
 	.cn-alert-variant-default {
-		@apply bg-card text-card-foreground;
+		@apply dark:bg-input/32 *:[svg]:text-muted-foreground bg-transparent;
 	}
 
 	.cn-alert-variant-destructive {
-		@apply text-destructive bg-card *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current;
+		@apply border-destructive/32 bg-destructive/4 *:[svg]:text-destructive;
 	}
 
 	.cn-alert-title {
-		@apply font-medium group-has-[>svg]/alert:col-start-2;
+		@apply font-medium [svg~&]:col-start-2;
 	}
 
 	.cn-alert-description {
-		@apply text-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-4;
+		@apply text-muted-foreground flex flex-col gap-2.5 [svg~&]:col-start-2;
 	}
 
 	.cn-alert-action {
-		@apply absolute top-2 right-2;
+		@apply flex gap-1 max-sm:col-start-2 max-sm:mt-2 sm:row-start-1 sm:row-end-3 sm:self-center sm:[[data-slot=alert-description]~&]:col-start-2 sm:[[data-slot=alert-title]~&]:col-start-2 sm:[svg~&]:col-start-2 sm:[svg~[data-slot=alert-description]~&]:col-start-3 sm:[svg~[data-slot=alert-title]~&]:col-start-3;
 	}
 
 	/* MARK: Alert Dialog */
 	.cn-alert-dialog-overlay {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
+		@apply bg-black/32 backdrop-blur-sm transition-all duration-200 data-closed:opacity-0 data-open:opacity-100;
 	}
 
 	.cn-alert-dialog-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-popover text-popover-foreground ring-foreground/10 gap-4 rounded-xl p-4 ring-1 duration-100 data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm;
+		@apply bg-popover text-popover-foreground relative flex max-h-full min-h-0 w-full max-w-lg flex-col rounded-2xl border shadow-lg/5 transition-[scale,opacity,translate] duration-200 ease-in-out before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-2xl)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] data-closed:scale-98 data-closed:opacity-0 dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-alert-dialog-header {
-		@apply grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-left sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr];
+		@apply flex flex-col gap-2 p-6 text-center max-sm:pb-4 sm:text-left;
 	}
 
 	.cn-alert-dialog-media {
-		@apply bg-muted mb-2 inline-flex size-10 items-center justify-center rounded-md sm:group-data-[size=default]/alert-dialog-content:row-span-2 *:[svg:not([class*='size-'])]:size-6;
+		@apply bg-muted mb-2 inline-flex size-10 items-center justify-center rounded-md *:[svg:not([class*='size-'])]:size-6;
 	}
 
 	.cn-alert-dialog-title {
-		@apply text-base font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2;
+		@apply text-xl leading-none font-semibold;
 	}
 
 	.cn-alert-dialog-description {
@@ -67,16 +67,16 @@
 	}
 
 	.cn-alert-dialog-footer {
-		@apply bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4;
+		@apply bg-muted/72 border-t px-6 py-4 sm:rounded-b-[calc(var(--radius-2xl)-1px)];
 	}
 
 	/* MARK: Avatar */
 	.cn-avatar {
-		@apply size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
+		@apply bg-background size-8 items-center justify-center overflow-hidden rounded-full align-middle text-xs font-medium after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
 	}
 
 	.cn-avatar-fallback {
-		@apply bg-muted text-muted-foreground rounded-full;
+		@apply bg-muted text-foreground rounded-full;
 	}
 
 	.cn-avatar-image {
@@ -93,23 +93,23 @@
 
 	/* MARK: Badge */
 	.cn-badge {
-		@apply h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3!;
+		@apply focus-visible:ring-ring focus-visible:ring-offset-background h-5.5 min-w-5.5 gap-1 rounded-sm border border-transparent px-[calc(--spacing(1)-1px)] text-sm font-medium transition-shadow outline-none focus-visible:ring-2 focus-visible:ring-offset-1 sm:h-4.5 sm:min-w-4.5 sm:text-xs [&>svg:not([class*='opacity-'])]:opacity-80 [&>svg:not([class*='size-'])]:size-3.5 sm:[&>svg:not([class*='size-'])]:size-3;
 	}
 
 	.cn-badge-variant-default {
-		@apply bg-primary text-primary-foreground [a]:hover:bg-primary/80;
+		@apply bg-primary text-primary-foreground [a]:hover:bg-primary/90;
 	}
 
 	.cn-badge-variant-secondary {
-		@apply bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80;
+		@apply bg-secondary text-secondary-foreground [a]:hover:bg-secondary/90;
 	}
 
 	.cn-badge-variant-outline {
-		@apply border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground;
+		@apply border-input bg-background text-foreground dark:bg-input/32 [a]:hover:bg-accent/50 dark:[a]:hover:bg-input/48;
 	}
 
 	.cn-badge-variant-destructive {
-		@apply bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20;
+		@apply bg-destructive [a]:hover:bg-destructive/90 text-white;
 	}
 
 	.cn-badge-variant-ghost {
@@ -138,7 +138,7 @@
 	}
 
 	.cn-breadcrumb-separator {
-		@apply [&>svg]:size-3.5;
+		@apply opacity-80 [&>svg]:size-4;
 	}
 
 	.cn-breadcrumb-ellipsis {
@@ -147,63 +147,63 @@
 
 	/* MARK: Button */
 	.cn-button {
-		@apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4;
+		@apply focus-visible:ring-ring focus-visible:ring-offset-background relative cursor-pointer gap-2 rounded-lg border border-transparent text-base font-medium transition-shadow outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] focus-visible:ring-2 focus-visible:ring-offset-1 disabled:opacity-64 sm:text-sm pointer-coarse:after:absolute pointer-coarse:after:size-full pointer-coarse:after:min-h-11 pointer-coarse:after:min-w-11 [&_svg]:-mx-0.5 [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-button-variant-default {
-		@apply bg-primary text-primary-foreground [a]:hover:bg-primary/80;
+		@apply border-primary bg-primary text-primary-foreground shadow-primary/24 hover:bg-primary/90 data-pressed:bg-primary/90 shadow-xs not-disabled:inset-shadow-[0_1px_--theme(--color-white/16%)] [:active,[data-pressed]]:inset-shadow-[0_1px_--theme(--color-black/8%)] [:disabled,:active,[data-pressed]]:shadow-none;
 	}
 
 	.cn-button-variant-outline {
-		@apply border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground;
+		@apply border-input bg-popover text-foreground hover:bg-accent/50 data-pressed:bg-accent/50 dark:bg-input/32 dark:data-pressed:bg-input/64 dark:hover:bg-input/64 shadow-xs/5 not-disabled:not-active:not-data-pressed:before:shadow-[0_1px_--theme(--color-black/4%)] dark:not-disabled:before:shadow-[0_-1px_--theme(--color-white/2%)] dark:not-disabled:not-active:not-data-pressed:before:shadow-[0_-1px_--theme(--color-white/6%)] [:disabled,:active,[data-pressed]]:shadow-none;
 	}
 
 	.cn-button-variant-secondary {
-		@apply bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground;
+		@apply bg-secondary text-secondary-foreground hover:bg-secondary/90 data-pressed:bg-secondary/90 [:active,[data-pressed]]:bg-secondary/80 border-transparent;
 	}
 
 	.cn-button-variant-ghost {
-		@apply hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground;
+		@apply text-foreground hover:bg-accent data-pressed:bg-accent border-transparent;
 	}
 
 	.cn-button-variant-destructive {
-		@apply bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30;
+		@apply border-destructive bg-destructive shadow-destructive/24 hover:bg-destructive/90 data-pressed:bg-destructive/90 text-white shadow-xs not-disabled:inset-shadow-[0_1px_--theme(--color-white/16%)] [:active,[data-pressed]]:inset-shadow-[0_1px_--theme(--color-black/8%)] [:disabled,:active,[data-pressed]]:shadow-none;
 	}
 
 	.cn-button-variant-link {
-		@apply text-primary underline-offset-4 hover:underline;
+		@apply text-foreground border-transparent underline-offset-4 hover:underline data-pressed:underline;
 	}
 
 	.cn-button-size-xs {
-		@apply h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3;
+		@apply h-7 gap-1 rounded-md px-[calc(--spacing(2)-1px)] text-sm before:rounded-[calc(var(--radius-md)-1px)] sm:h-6 sm:text-xs [&_svg:not([class*='size-'])]:size-4 sm:[&_svg:not([class*='size-'])]:size-3.5;
 	}
 
 	.cn-button-size-sm {
-		@apply h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5;
+		@apply h-8 gap-1.5 px-[calc(--spacing(2.5)-1px)] sm:h-7;
 	}
 
 	.cn-button-size-default {
-		@apply h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+		@apply h-9 px-[calc(--spacing(3)-1px)] sm:h-8;
 	}
 
 	.cn-button-size-lg {
-		@apply h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+		@apply h-10 px-[calc(--spacing(3.5)-1px)] sm:h-9;
 	}
 
 	.cn-button-size-icon-xs {
-		@apply size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3;
+		@apply size-7 rounded-md before:rounded-[calc(var(--radius-md)-1px)] sm:size-6 [&_svg:not([class*='size-'])]:size-4 sm:[&_svg:not([class*='size-'])]:size-3.5;
 	}
 
 	.cn-button-size-icon-sm {
-		@apply size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg;
+		@apply size-8 sm:size-7;
 	}
 
 	.cn-button-size-icon {
-		@apply size-8;
+		@apply size-9 sm:size-8;
 	}
 
 	.cn-button-size-icon-lg {
-		@apply size-9;
+		@apply size-10 sm:size-9;
 	}
 
 	/* MARK: Button Group */
@@ -242,15 +242,15 @@
 
 	/* MARK: Card */
 	.cn-card {
-		@apply ring-foreground/10 bg-card text-card-foreground gap-4 overflow-hidden rounded-xl py-4 text-sm ring-1 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl;
+		@apply bg-card text-card-foreground relative rounded-2xl border shadow-xs/5 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-2xl)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-card-header {
-		@apply gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3;
+		@apply grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 p-6 in-[[data-slot=card]:has(>[data-slot=card-content])]:pb-4 has-data-[slot=card-action]:grid-cols-[1fr_auto];
 	}
 
 	.cn-card-title {
-		@apply text-base leading-snug font-medium group-data-[size=sm]/card:text-sm;
+		@apply text-lg leading-none font-semibold;
 	}
 
 	.cn-card-description {
@@ -258,11 +258,11 @@
 	}
 
 	.cn-card-content {
-		@apply px-4 group-data-[size=sm]/card:px-3;
+		@apply flex-1 p-6 in-[[data-slot=card]:has(>[data-slot=card-footer]:not(.border-t))]:pb-0 in-[[data-slot=card]:has(>[data-slot=card-header]:not(.border-b))]:pt-0;
 	}
 
 	.cn-card-footer {
-		@apply bg-muted/50 rounded-b-xl border-t p-4 group-data-[size=sm]/card:p-3;
+		@apply flex items-center p-6 in-[[data-slot=card]:has(>[data-slot=card-content])]:pt-4;
 	}
 
 	/* MARK: Carousel */
@@ -281,11 +281,11 @@
 
 	/* MARK: Checkbox */
 	.cn-checkbox {
-		@apply border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 flex size-4 items-center justify-center rounded-[4px] border transition-colors group-has-disabled/field:opacity-50 focus-visible:ring-3 aria-invalid:ring-3;
+		@apply border-input bg-background ring-ring focus-visible:ring-offset-background aria-invalid:border-destructive/36 focus-visible:aria-invalid:border-destructive/64 focus-visible:aria-invalid:ring-destructive/48 dark:not-data-checked:bg-input/32 dark:aria-invalid:ring-destructive/24 relative size-4.5 rounded-[.25rem] border shadow-xs/5 transition-shadow before:pointer-events-none before:absolute before:inset-0 before:rounded-[3px] not-data-disabled:not-data-checked:not-aria-invalid:before:shadow-[0_1px_--theme(--color-black/4%)] focus-visible:ring-2 focus-visible:ring-offset-1 data-disabled:opacity-64 sm:size-4 dark:not-data-disabled:not-data-checked:not-aria-invalid:before:shadow-[0_-1px_--theme(--color-white/6%)] [[data-disabled],[data-checked],[aria-invalid]]:shadow-none;
 	}
 
 	.cn-checkbox-indicator {
-		@apply [&>svg]:size-3.5;
+		@apply text-primary-foreground data-checked:bg-primary data-indeterminate:text-foreground absolute -inset-px rounded-[.25rem] data-unchecked:hidden [&>svg]:size-3.5 sm:[&>svg]:size-3;
 	}
 
 	/* MARK: Combobox */
@@ -347,19 +347,19 @@
 
 	/* MARK: Command */
 	.cn-command {
-		@apply bg-popover text-popover-foreground rounded-xl! p-1;
+		@apply bg-popover text-popover-foreground rounded-2xl! p-1;
 	}
 
 	.cn-command-dialog {
-		@apply rounded-xl!;
+		@apply rounded-2xl! shadow-lg/5;
 	}
 
 	.cn-command-input-wrapper {
-		@apply p-1 pb-0;
+		@apply px-2.5 py-1.5;
 	}
 
 	.cn-command-input-group {
-		@apply bg-input/30 border-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!;
+		@apply h-9! rounded-lg! border-transparent! bg-transparent! shadow-none! before:hidden has-focus-visible:ring-0 *:data-[slot=input-group-addon]:pl-2!;
 	}
 
 	.cn-command-input-icon {
@@ -371,7 +371,7 @@
 	}
 
 	.cn-command-list {
-		@apply no-scrollbar max-h-72 scroll-py-1 outline-none;
+		@apply no-scrollbar max-h-72 scroll-py-2 p-2 outline-none;
 	}
 
 	.cn-command-empty {
@@ -379,19 +379,19 @@
 	}
 
 	.cn-command-group {
-		@apply text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium;
+		@apply text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium;
 	}
 
 	.cn-command-separator {
-		@apply bg-border -mx-1 h-px;
+		@apply bg-border my-2 h-px;
 	}
 
 	.cn-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4;
+		@apply data-selected:bg-accent data-selected:text-accent-foreground data-selected:*:[svg]:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-base outline-hidden select-none sm:text-sm [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-command-shortcut {
-		@apply text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground/72 group-data-selected/command-item:text-accent-foreground ml-auto font-sans text-xs font-medium tracking-widest;
 	}
 
 	/* MARK: Context Menu */
@@ -445,11 +445,11 @@
 
 	/* MARK: Dialog */
 	.cn-dialog-overlay {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
+		@apply bg-black/32 backdrop-blur-sm transition-all duration-200 data-closed:opacity-0 data-open:opacity-100;
 	}
 
 	.cn-dialog-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm;
+		@apply bg-popover text-popover-foreground relative flex max-h-full min-h-0 w-full max-w-lg flex-col rounded-2xl border shadow-lg/5 transition-[scale,opacity,translate] duration-200 outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-2xl)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] data-closed:scale-98 data-closed:opacity-0 dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-dialog-close {
@@ -457,15 +457,15 @@
 	}
 
 	.cn-dialog-header {
-		@apply gap-2;
+		@apply gap-2 p-6 in-[[data-slot=dialog-content]:has([data-slot=dialog-panel])]:pb-3 max-sm:pb-4;
 	}
 
 	.cn-dialog-footer {
-		@apply bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4;
+		@apply bg-muted/72 gap-2 border-t px-6 py-4 sm:rounded-b-[calc(var(--radius-2xl)-1px)];
 	}
 
 	.cn-dialog-title {
-		@apply text-base leading-none font-medium;
+		@apply font-heading text-xl leading-none font-semibold;
 	}
 
 	.cn-dialog-description {
@@ -503,7 +503,7 @@
 
 	/* MARK: Dropdown Menu */
 	.cn-dropdown-menu-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-lg p-1 shadow-md ring-1 duration-100;
+		@apply bg-popover text-popover-foreground relative isolate min-w-32 rounded-lg border p-1 shadow-lg/5 outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-dropdown-menu-content-logical {
@@ -511,39 +511,39 @@
 	}
 
 	.cn-dropdown-menu-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground gap-2 rounded-sm px-2 py-1 text-base data-inset:pl-8 sm:min-h-7 sm:text-sm [&_svg]:-mx-0.5 [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-dropdown-menu-checkbox-item {
-		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground grid min-h-8 grid-cols-[.75rem_1fr] gap-2 rounded-sm py-1 pr-4 pl-2 text-base data-inset:pl-8 sm:min-h-7 sm:text-sm [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-dropdown-menu-radio-item {
-		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground grid min-h-8 grid-cols-[.75rem_1fr] gap-2 rounded-sm py-1 pr-4 pl-2 text-base data-inset:pl-8 sm:min-h-7 sm:text-sm [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-dropdown-menu-item-indicator {
-		@apply absolute right-2 flex items-center justify-center;
+		@apply col-start-1 -ms-0.5 flex items-center justify-center;
 	}
 
 	.cn-dropdown-menu-label {
-		@apply text-muted-foreground px-1.5 py-1 text-xs font-medium data-inset:pl-7;
+		@apply text-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:pl-8;
 	}
 
 	.cn-dropdown-menu-separator {
-		@apply bg-border -mx-1 my-1 h-px;
+		@apply bg-border mx-2 my-1 h-px;
 	}
 
 	.cn-dropdown-menu-shortcut {
-		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground/72 group-focus/dropdown-menu-item:text-accent-foreground ml-auto font-sans text-xs font-medium tracking-widest;
 	}
 
 	.cn-dropdown-menu-sub-trigger {
-		@apply focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+		@apply focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground min-h-8 gap-2 rounded-sm px-2 py-1 text-base data-inset:pl-8 sm:min-h-7 sm:text-sm [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&>svg:not(:last-child)]:-mx-0.5;
 	}
 
 	.cn-dropdown-menu-sub-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-[96px] rounded-lg p-1 shadow-lg ring-1 duration-100;
+		@apply bg-popover text-popover-foreground relative isolate min-w-32 rounded-lg border p-1 shadow-lg/5 outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-dropdown-menu-subcontent {
@@ -552,15 +552,15 @@
 
 	/* MARK: Empty */
 	.cn-empty {
-		@apply gap-4 rounded-xl border-dashed p-6;
+		@apply gap-6 px-6 py-12 md:py-20;
 	}
 
 	.cn-empty-header {
-		@apply gap-2;
+		@apply gap-0 text-center;
 	}
 
 	.cn-empty-media {
-		@apply mb-2;
+		@apply relative mb-6;
 	}
 
 	.cn-empty-media-default {
@@ -568,36 +568,36 @@
 	}
 
 	.cn-empty-media-icon {
-		@apply bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4;
+		@apply bg-card text-foreground relative flex size-9 shrink-0 items-center justify-center rounded-md border shadow-sm/5 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-md)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:before:shadow-[0_-1px_--theme(--color-white/6%)] [&_svg:not([class*='size-'])]:size-4.5;
 	}
 
 	.cn-empty-title {
-		@apply text-sm font-medium tracking-tight;
+		@apply text-xl font-semibold;
 	}
 
 	.cn-empty-description {
-		@apply text-sm/relaxed;
+		@apply text-sm [[data-slot=empty-title]+&]:mt-1;
 	}
 
 	.cn-empty-content {
-		@apply gap-2.5 text-sm;
+		@apply gap-4 text-sm;
 	}
 
 	/* MARK: Field */
 	.cn-field-set {
-		@apply gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3;
+		@apply gap-4;
 	}
 
 	.cn-field-legend {
-		@apply mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base;
+		@apply mb-1.5 text-base/4.5 font-medium data-[variant=label]:text-sm/4 data-[variant=legend]:text-base/4.5;
 	}
 
 	.cn-field-group {
-		@apply gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4;
+		@apply gap-4 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4;
 	}
 
 	.cn-field {
-		@apply data-[invalid=true]:text-destructive gap-2;
+		@apply data-[invalid=true]:text-destructive-foreground gap-2;
 	}
 
 	.cn-field-content {
@@ -605,15 +605,15 @@
 	}
 
 	.cn-field-label {
-		@apply has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5;
+		@apply text-foreground gap-2 text-base/4.5 font-medium group-data-[disabled=true]/field:opacity-64 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5 sm:text-sm/4;
 	}
 
 	.cn-field-title {
-		@apply gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50;
+		@apply text-foreground gap-2 text-base/4.5 font-medium group-data-[disabled=true]/field:opacity-64 sm:text-sm/4;
 	}
 
 	.cn-field-description {
-		@apply text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5;
+		@apply text-muted-foreground text-left text-xs [[data-variant=legend]+&]:-mt-1.5;
 	}
 
 	.cn-field-separator {
@@ -625,7 +625,7 @@
 	}
 
 	.cn-field-error {
-		@apply text-destructive text-sm;
+		@apply text-destructive-foreground text-xs;
 	}
 
 	/* MARK: Hover Card */
@@ -639,7 +639,7 @@
 
 	/* MARK: Input */
 	.cn-input {
-		@apply dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm;
+		@apply border-input bg-background text-foreground ring-ring/24 placeholder:text-muted-foreground/72 focus-visible:border-ring aria-invalid:border-destructive/36 aria-invalid:ring-destructive/20 dark:bg-input/32 dark:aria-invalid:ring-destructive/24 h-8.5 w-full rounded-lg border px-[calc(--spacing(3)-1px)] text-base shadow-xs/5 transition-shadow file:me-3 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:opacity-64 aria-invalid:ring-3 sm:h-7.5 sm:text-sm;
 	}
 
 	/* MARK: Input OTP */
@@ -742,7 +742,7 @@
 
 	/* MARK: Kbd */
 	.cn-kbd {
-		@apply bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3;
+		@apply bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-[.25rem] px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3;
 	}
 
 	.cn-kbd-group {
@@ -751,7 +751,7 @@
 
 	/* MARK: Label */
 	.cn-label {
-		@apply gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50;
+		@apply text-foreground gap-2 text-base/4.5 font-medium group-data-[disabled=true]:opacity-64 peer-disabled:opacity-64 sm:text-sm/4;
 	}
 
 	/* MARK: Menubar */
@@ -884,7 +884,7 @@
 
 	/* MARK: Popover */
 	.cn-popover-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 duration-100;
+		@apply bg-popover text-popover-foreground relative flex flex-col gap-2.5 rounded-lg border p-4 text-sm shadow-lg/5 transition-[scale,opacity] outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] data-closed:scale-98 data-closed:opacity-0 data-open:scale-100 data-open:opacity-100 dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-popover-content-logical {
@@ -896,24 +896,24 @@
 	}
 
 	.cn-popover-title {
-		@apply font-medium;
+		@apply text-lg leading-none font-semibold;
 	}
 
 	.cn-popover-description {
-		@apply text-muted-foreground;
+		@apply text-muted-foreground text-sm;
 	}
 
 	/* MARK: Progress */
 	.cn-progress {
-		@apply bg-muted h-1 rounded-full;
+		@apply flex flex-col gap-2;
 	}
 
 	.cn-progress-track {
-		@apply bg-muted h-1 rounded-full;
+		@apply bg-input h-1.5 rounded-full;
 	}
 
 	.cn-progress-indicator {
-		@apply bg-primary;
+		@apply bg-primary transition-all duration-500;
 	}
 
 	.cn-progress-label {
@@ -921,24 +921,24 @@
 	}
 
 	.cn-progress-value {
-		@apply text-muted-foreground ml-auto text-sm tabular-nums;
+		@apply ml-auto text-sm tabular-nums;
 	}
 
 	/* MARK: Radio Group */
 	.cn-radio-group {
-		@apply grid gap-2;
+		@apply flex flex-col gap-3;
 	}
 
 	.cn-radio-group-item {
-		@apply border-input dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3;
+		@apply border-input bg-background ring-ring focus-visible:ring-offset-background aria-invalid:border-destructive/36 focus-visible:aria-invalid:border-destructive/64 focus-visible:aria-invalid:ring-destructive/48 dark:not-data-checked:bg-input/32 dark:data-[state=unchecked]:bg-input/32 dark:aria-invalid:ring-destructive/24 relative inline-flex size-4.5 items-center justify-center rounded-full border shadow-xs/5 transition-shadow before:pointer-events-none before:absolute before:inset-0 before:rounded-full not-data-disabled:not-data-checked:not-data-[state=checked]:not-aria-invalid:before:shadow-[0_1px_--theme(--color-black/4%)] focus-visible:ring-2 focus-visible:ring-offset-1 data-disabled:opacity-64 sm:size-4 dark:not-data-disabled:not-data-checked:not-data-[state=checked]:not-aria-invalid:before:shadow-[0_-1px_--theme(--color-white/6%)] [[data-disabled],[data-checked],[data-state=checked],[aria-invalid]]:shadow-none;
 	}
 
 	.cn-radio-group-indicator {
-		@apply flex size-4 items-center justify-center;
+		@apply group-data-checked/radio-group-item:bg-primary group-data-[state=checked]/radio-group-item:bg-primary absolute -inset-px flex size-4.5 items-center justify-center rounded-full sm:size-4;
 	}
 
 	.cn-radio-group-indicator-icon {
-		@apply bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
+		@apply text-primary-foreground size-2 fill-current stroke-none sm:size-1.5;
 	}
 
 	/* MARK: Resizable */
@@ -957,19 +957,19 @@
 
 	/* MARK: Select */
 	.cn-select-trigger {
-		@apply border-input data-placeholder:text-muted-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 gap-1.5 rounded-lg border bg-transparent py-2 pr-2 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 [&_svg:not([class*='size-'])]:size-4;
+		@apply border-input bg-background text-foreground ring-ring/24 focus-visible:border-ring aria-invalid:border-destructive/36 focus-visible:aria-invalid:border-destructive/64 focus-visible:aria-invalid:ring-destructive/16 dark:bg-input/32 dark:aria-invalid:ring-destructive/24 relative min-h-9 min-w-36 gap-2 rounded-lg border px-[calc(--spacing(3)-1px)] text-base shadow-xs/5 transition-shadow before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] not-data-disabled:not-focus-visible:not-aria-invalid:not-data-pressed:before:shadow-[0_1px_--theme(--color-black/4%)] focus-visible:ring-[3px] data-disabled:opacity-64 sm:min-h-8 sm:text-sm dark:not-data-disabled:not-focus-visible:not-aria-invalid:not-data-pressed:before:shadow-[0_-1px_--theme(--color-white/6%)] [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [[data-disabled],:focus-visible,[aria-invalid],[data-pressed]]:shadow-none;
 	}
 
 	.cn-select-value {
-		@apply flex flex-1 text-left;
+		@apply data-placeholder:text-muted-foreground/72 flex flex-1 text-left;
 	}
 
 	.cn-select-trigger-icon {
-		@apply text-muted-foreground size-4;
+		@apply -me-1 size-4.5 opacity-80 sm:size-4;
 	}
 
 	.cn-select-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 min-w-36 rounded-lg shadow-md ring-1 duration-100;
+		@apply text-popover-foreground bg-popover relative isolate min-w-36 rounded-lg border shadow-lg/5 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-select-content-logical {
@@ -981,11 +981,11 @@
 	}
 
 	.cn-select-item {
-		@apply focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2;
+		@apply data-highlighted:bg-accent data-highlighted:text-accent-foreground grid min-h-8 cursor-default grid-cols-[1rem_1fr] items-center gap-2 rounded-sm py-1 ps-2 pe-4 text-base outline-none data-disabled:opacity-64 sm:min-h-7 sm:text-sm [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-select-item-indicator {
-		@apply pointer-events-none absolute right-2 flex size-4 items-center justify-center;
+		@apply col-start-1 flex size-4 items-center justify-center;
 	}
 
 	.cn-select-group {
@@ -1010,7 +1010,7 @@
 
 	/* MARK: Separator */
 	.cn-separator {
-		@apply bg-border shrink-0;
+		@apply bg-border shrink-0 data-[orientation=vertical]:not-[[class^='h-']]:not-[[class*='_h-']]:self-stretch;
 	}
 
 	.cn-separator-horizontal {
@@ -1023,27 +1023,27 @@
 
 	/* MARK: Sheet */
 	.cn-sheet-overlay {
-		@apply bg-black/10 supports-backdrop-filter:backdrop-blur-xs;
+		@apply bg-black/32 backdrop-blur-sm transition-all duration-200;
 	}
 
 	.cn-sheet-content {
-		@apply bg-popover text-popover-foreground fixed z-50 flex flex-col gap-4 bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm;
+		@apply bg-popover text-popover-foreground fixed z-50 flex min-h-0 flex-col gap-0 bg-clip-padding text-sm shadow-lg/5 transition-[opacity,translate] duration-200 ease-in-out before:pointer-events-none before:absolute before:inset-0 before:shadow-[0_1px_--theme(--color-black/4%)] data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-[calc(100%-(--spacing(12)))] data-[side=left]:max-w-md data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-[calc(100%-(--spacing(12)))] data-[side=right]:max-w-md data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b max-sm:before:hidden dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-sheet-close {
-		@apply absolute top-3 right-3;
+		@apply absolute top-2 right-2;
 	}
 
 	.cn-sheet-header {
-		@apply gap-0.5 p-4;
+		@apply gap-2 p-6 pb-3 max-sm:pb-4;
 	}
 
 	.cn-sheet-footer {
-		@apply gap-2 p-4;
+		@apply bg-muted/72 gap-2 border-t px-6 py-4 sm:flex-row sm:justify-end;
 	}
 
 	.cn-sheet-title {
-		@apply text-foreground text-base font-medium;
+		@apply text-foreground text-xl leading-none font-semibold;
 	}
 
 	.cn-sheet-description {
@@ -1166,11 +1166,11 @@
 
 	/* MARK: Slider */
 	.cn-slider {
-		@apply data-vertical:min-h-40;
+		@apply data-horizontal:w-full data-vertical:min-h-44;
 	}
 
 	.cn-slider-track {
-		@apply bg-muted rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1;
+		@apply before:bg-input relative rounded-full bg-transparent before:absolute before:rounded-full data-horizontal:h-1 data-horizontal:w-full data-horizontal:before:inset-x-0.5 data-horizontal:before:inset-y-0 data-vertical:h-full data-vertical:w-1 data-vertical:before:inset-x-0 data-vertical:before:inset-y-0.5;
 	}
 
 	.cn-slider-range {
@@ -1178,7 +1178,7 @@
 	}
 
 	.cn-slider-thumb {
-		@apply border-ring ring-ring/50 relative size-3 rounded-full border bg-white transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3;
+		@apply border-input ring-ring/24 dark:border-background relative size-5 rounded-full border bg-white shadow-xs/5 transition-[box-shadow,scale] before:absolute before:inset-0 before:rounded-full before:shadow-[0_1px_--theme(--color-black/4%)] after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 sm:size-4;
 	}
 
 	/* MARK: Sonner */
@@ -1188,11 +1188,11 @@
 
 	/* MARK: Switch */
 	.cn-switch {
-		@apply data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-3 aria-invalid:ring-3 data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px];
+		@apply data-checked:bg-primary data-[state=checked]:bg-primary data-unchecked:bg-input data-[state=unchecked]:bg-input focus-visible:ring-ring focus-visible:ring-offset-background inline-flex shrink-0 items-center rounded-full border border-transparent p-px transition-[background-color,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-offset-1 data-[size=default]:h-[calc(var(--thumb-size)+2px)] data-[size=default]:w-[calc(var(--thumb-size)*2-2px)] data-[size=default]:[--thumb-size:--spacing(5)] data-[size=sm]:h-[calc(var(--thumb-size)+2px)] data-[size=sm]:w-[calc(var(--thumb-size)*2-2px)] data-[size=sm]:[--thumb-size:--spacing(4)];
 	}
 
 	.cn-switch-thumb {
-		@apply bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0;
+		@apply bg-background block aspect-square h-full origin-left rounded-(--thumb-size) shadow-sm/5 will-change-transform [transition:translate_.15s,border-radius_.15s,scale_.1s_.1s,transform-origin_.15s] in-[[role=switch]:active,[data-slot=label]:active,[data-slot=field-label]:active]:rounded-[var(--thumb-size)/calc(var(--thumb-size)*1.1)] in-[[role=switch]:active,[data-slot=label]:active,[data-slot=field-label]:active]:not-data-disabled:scale-x-110 data-checked:origin-[var(--thumb-size)_50%] data-checked:translate-x-[calc(var(--thumb-size)-4px)] data-unchecked:translate-x-0 data-[state=checked]:origin-[var(--thumb-size)_50%] data-[state=checked]:translate-x-[calc(var(--thumb-size)-4px)] data-[state=unchecked]:translate-x-0;
 	}
 
 	/* MARK: Table */
@@ -1201,7 +1201,7 @@
 	}
 
 	.cn-table {
-		@apply w-full caption-bottom text-sm;
+		@apply w-full caption-bottom text-sm in-data-[variant=card]:border-separate in-data-[variant=card]:border-spacing-0;
 	}
 
 	.cn-table-header {
@@ -1213,19 +1213,19 @@
 	}
 
 	.cn-table-footer {
-		@apply bg-muted/50 border-t font-medium [&>tr]:last:border-b-0;
+		@apply border-t bg-transparent font-medium not-in-data-[variant=card]:bg-[color-mix(in_srgb,var(--card),var(--color-black)_2%)] dark:not-in-data-[variant=card]:bg-[color-mix(in_srgb,var(--card),var(--color-white)_2%)] [&>tr]:last:border-b-0;
 	}
 
 	.cn-table-row {
-		@apply hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors;
+		@apply relative border-b not-in-data-[variant=card]:hover:bg-[color-mix(in_srgb,var(--background),var(--color-black)_2%)] not-in-data-[variant=card]:data-[state=selected]:bg-[color-mix(in_srgb,var(--background),var(--color-black)_4%)] dark:not-in-data-[variant=card]:hover:bg-[color-mix(in_srgb,var(--background),var(--color-white)_2%)] dark:not-in-data-[variant=card]:data-[state=selected]:bg-[color-mix(in_srgb,var(--background),var(--color-white)_4%)];
 	}
 
 	.cn-table-head {
-		@apply text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0;
+		@apply text-muted-foreground h-10 px-2.5 text-left align-middle leading-none font-medium whitespace-nowrap has-[[role=checkbox]]:w-px first:has-[[role=checkbox]]:pe-0 last:has-[[role=checkbox]]:ps-0;
 	}
 
 	.cn-table-cell {
-		@apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0;
+		@apply bg-clip-padding p-2.5 align-middle leading-none whitespace-nowrap in-data-[slot=table-footer]:py-3.5 in-data-[variant=card]:first:ps-[calc(--spacing(2.5)-1px)] in-data-[variant=card]:last:pe-[calc(--spacing(2.5)-1px)] has-[[role=checkbox]]:w-px first:has-[[role=checkbox]]:pe-0 last:has-[[role=checkbox]]:ps-0;
 	}
 
 	.cn-table-caption {
@@ -1234,15 +1234,15 @@
 
 	/* MARK: Tabs */
 	.cn-tabs {
-		@apply gap-2;
+		@apply gap-2 data-[orientation=vertical]:flex-row;
 	}
 
 	.cn-tabs-list {
-		@apply rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none;
+		@apply relative z-0 gap-x-0.5 rounded-lg p-0.5 group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none data-[variant=line]:bg-transparent data-[variant=line]:p-1;
 	}
 
 	.cn-tabs-trigger {
-		@apply gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg:not([class*='size-'])]:size-4;
+		@apply hover:text-muted-foreground data-active:text-foreground h-9 grow gap-1.5 rounded-md border border-transparent px-[calc(--spacing(2.5)-1px)] text-base font-medium group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start sm:h-8 sm:text-sm [&_svg]:-mx-0.5 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-tabs-content {
@@ -1251,46 +1251,46 @@
 
 	/* MARK: Textarea */
 	.cn-textarea {
-		@apply border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm;
+		@apply border-input bg-background text-foreground ring-ring/24 placeholder:text-muted-foreground/72 focus-visible:border-ring aria-invalid:border-destructive/36 aria-invalid:ring-destructive/20 dark:bg-input/32 dark:aria-invalid:ring-destructive/24 min-h-17.5 rounded-lg border px-[calc(--spacing(3)-1px)] py-[calc(--spacing(1.5)-1px)] text-base shadow-xs/5 transition-shadow focus-visible:ring-[3px] disabled:opacity-64 aria-invalid:ring-3 max-sm:min-h-20.5 sm:text-sm;
 	}
 
 	/* MARK: Toggle */
 	.cn-toggle {
-		@apply hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[state=on]:bg-muted gap-1 rounded-lg text-sm font-medium transition-all [&_svg:not([class*='size-'])]:size-4;
+		@apply text-foreground focus-visible:ring-ring focus-visible:ring-offset-background hover:bg-accent data-pressed:bg-input/64 data-pressed:text-accent-foreground data-[state=on]:bg-input/64 relative cursor-pointer gap-2 rounded-lg border text-base font-medium transition-shadow before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] focus-visible:ring-2 focus-visible:ring-offset-1 disabled:opacity-64 sm:text-sm [&_svg]:-mx-0.5 [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-toggle-variant-default {
-		@apply bg-transparent;
+		@apply border-transparent bg-transparent;
 	}
 
 	.cn-toggle-variant-outline {
-		@apply border-input hover:bg-muted border bg-transparent;
+		@apply border-input bg-background dark:bg-input/32 dark:data-pressed:bg-input dark:hover:bg-input/64 shadow-xs/5 not-disabled:not-active:not-data-pressed:before:shadow-[0_1px_--theme(--color-black/4%)] dark:not-disabled:not-active:not-data-pressed:before:shadow-[0_-1px_--theme(--color-white/6%)] [:disabled,:active,[data-pressed]]:shadow-none;
 	}
 
 	.cn-toggle-size-default {
-		@apply h-8 min-w-8 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+		@apply h-9 min-w-9 px-[calc(--spacing(2)-1px)] sm:h-8 sm:min-w-8;
 	}
 
 	.cn-toggle-size-sm {
-		@apply h-7 min-w-7 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5;
+		@apply h-8 min-w-8 px-[calc(--spacing(1.5)-1px)] sm:h-7 sm:min-w-7;
 	}
 
 	.cn-toggle-size-lg {
-		@apply h-9 min-w-9 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+		@apply h-10 min-w-10 px-[calc(--spacing(2.5)-1px)] sm:h-9 sm:min-w-9;
 	}
 
 	/* MARK: Toggle Group */
 	.cn-toggle-group {
-		@apply rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)];
+		@apply data-[variant=default]:gap-0.5 data-[variant=outline]:gap-0;
 	}
 
 	.cn-toggle-group-item {
-		@apply group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg;
+		@apply group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[variant=outline]/toggle-group:not-first:rounded-s-none group-data-[variant=outline]/toggle-group:not-last:rounded-e-none group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg;
 	}
 
 	/* MARK: Tooltip */
 	.cn-tooltip-content {
-		@apply data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm;
+		@apply bg-popover text-popover-foreground relative flex rounded-md border px-2 py-1 text-xs text-balance shadow-md/5 transition-[scale,opacity] before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-md)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] has-data-[slot=kbd]:pr-1.5 data-closed:scale-98 data-closed:opacity-0 data-open:scale-100 data-open:opacity-100 dark:before:shadow-[0_-1px_--theme(--color-white/6%)];
 	}
 
 	.cn-tooltip-content-logical {
@@ -1307,27 +1307,27 @@
 
 	/* MARK: Input Group */
 	.cn-input-group {
-		@apply border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 h-8 rounded-lg border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
+		@apply border-input bg-background text-foreground ring-ring/24 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot][aria-invalid=true]]:border-destructive/36 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 dark:bg-input/32 dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/24 relative inline-flex rounded-lg border text-base shadow-xs/5 transition-shadow before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] not-has-[[data-slot=input-group-control]:disabled]:not-has-[[data-slot=input-group-control]:focus-visible]:not-has-[[data-slot][aria-invalid=true]]:before:shadow-[0_1px_--theme(--color-black/4%)] has-disabled:opacity-64 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto sm:text-sm dark:not-has-[[data-slot=input-group-control]:disabled]:not-has-[[data-slot=input-group-control]:focus-visible]:not-has-[[data-slot][aria-invalid=true]]:before:shadow-[0_-1px_--theme(--color-white/6%)] has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
 	}
 
 	.cn-input-group-addon {
-		@apply text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4;
+		@apply text-muted-foreground h-auto gap-2 leading-none group-data-[disabled=true]/input-group:opacity-64 [&_svg]:-mx-0.5 [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&>kbd]:rounded-[calc(var(--radius)-5px)];
 	}
 
 	.cn-input-group-addon-align-inline-start {
-		@apply pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem];
+		@apply pl-[calc(--spacing(3)-1px)] has-[>button]:-ml-2 has-[>kbd:last-child]:ml-[-0.35rem];
 	}
 
 	.cn-input-group-addon-align-inline-end {
-		@apply pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem];
+		@apply pr-[calc(--spacing(3)-1px)] has-[>button]:-mr-2 has-[>kbd:last-child]:mr-[-0.35rem];
 	}
 
 	.cn-input-group-addon-align-block-start {
-		@apply px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2;
+		@apply px-[calc(--spacing(3)-1px)] pt-[calc(--spacing(3)-1px)] [.border-b]:pb-[calc(--spacing(3)-1px)];
 	}
 
 	.cn-input-group-addon-align-block-end {
-		@apply px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2;
+		@apply px-[calc(--spacing(3)-1px)] pb-[calc(--spacing(3)-1px)] [.border-t]:pt-[calc(--spacing(3)-1px)];
 	}
 
 	.cn-input-group-button {
@@ -1347,7 +1347,7 @@
 	}
 
 	.cn-input-group-text {
-		@apply text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4;
+		@apply text-muted-foreground gap-2 leading-none [&_svg]:-mx-0.5 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4;
 	}
 
 	.cn-input-group-input {

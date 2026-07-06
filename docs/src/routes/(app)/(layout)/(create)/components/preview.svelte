@@ -15,8 +15,12 @@
 </script>
 
 <div
+	data-coss-ui
 	data-slot="preview"
-	class="border-border relative -mx-1 flex flex-1 flex-col justify-center overflow-hidden rounded-2xl border sm:mx-0"
+	class={cn(
+		"border-border bg-background text-foreground relative -mx-1 flex flex-1 flex-col justify-center overflow-hidden rounded-2xl border sm:mx-0",
+		`style-${designSystem.style} base-color-${designSystem.baseColor}`
+	)}
 >
 	<div
 		class={cn(

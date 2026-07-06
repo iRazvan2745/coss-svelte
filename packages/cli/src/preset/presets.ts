@@ -20,8 +20,8 @@ import { hex } from "../utils/colors.js";
 export const DEFAULT_PRESETS = {
 	nova: {
 		title: "Nova",
-		description: "Lucide / Geist",
-		hint: "Reduced spacing for compact layouts.",
+		description: "Coss / Lucide / Geist",
+		hint: "Coss UI surfaces, tokens, and compact controls.",
 		style: "nova",
 		baseColor: "neutral",
 		theme: "neutral",

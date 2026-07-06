@@ -15,8 +15,8 @@
 	"registry": "https://shadcn-svelte.com/registry",
 	"designSystem": {
 		"style": "nova",
-		"iconLibrary": "tabler",
-		"theme": "pink",
+		"iconLibrary": "lucide",
+		"theme": "neutral",
 		"menuAccent": "subtle",
 		"menuColor": "default",
 		"radius": "0.45rem",

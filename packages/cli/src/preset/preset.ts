@@ -163,9 +163,18 @@ export type PresetConfig = {
 	menuColor: (typeof PRESET_MENU_COLORS)[number];
 };
 
-export const DEFAULT_PRESET_CONFIG: PresetConfig = Object.fromEntries(
-	PRESET_FIELDS_V2.map((f) => [f.key, f.values[0]])
-) as PresetConfig;
+export const DEFAULT_PRESET_CONFIG: PresetConfig = {
+	style: "nova",
+	baseColor: "neutral",
+	theme: "neutral",
+	chartColor: "neutral",
+	iconLibrary: "lucide",
+	font: "geist",
+	fontHeading: "inherit",
+	radius: "default",
+	menuAccent: "subtle",
+	menuColor: "default",
+};
 
 // Base62 alphabet.
 const BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
